@@ -1,0 +1,33 @@
+// javascript로 푼 코드 
+//정확성 테스트만 만족시킨 답, 비교 후 comp 배열에서 줄여가며 시간을 줄이려 했음 but 배열 사이즈가 10만까지 갈 경우 시간초과 발생
+function solution(participant, completion) {
+    var answer = '';
+    var result;
+    for(var i of participant){
+      result=completion.indexOf(i);
+      if(result==-1){
+        answer=i;
+       	break;
+      }
+      else {
+        completion.splice(result,1);
+      }
+    }
+    return answer;
+}
+
+
+//효율성 측면까지 만족시킨 답 - 정렬을 해서 초기비용은 들지만 배열 크기가 길어져도 빠르게 해결가능
+function solution(participant, completion) {
+    var answer = '';
+    var result;
+    participant=participant.sort();
+    completion=completion.sort();
+    for(var i=0;i<participant.length;i++){
+      if(completion[i]!=participant[i]){
+        answer=participant[i];
+        break;
+      }
+    }
+    return answer;
+}
