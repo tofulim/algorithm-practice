@@ -1,0 +1,61 @@
+//자바 코드 
+class Index{
+		int idx;
+		int val;
+		public Index(int val, int idx) {
+			this.val=val;
+			this.idx=idx;
+		}
+	}
+	public int solution(int[] priorities, int location) {
+        int answer = 0;
+        Queue <Index> q=new LinkedList <>();
+        for(int i=0;i<priorities.length;i++) {
+        	q.offer(new Index(priorities[i],i));
+        }
+        Arrays.sort(priorities);
+        int printidx=-1;
+        int len=priorities.length-1;
+        while(printidx!=location) {
+        	Index i = q.peek();
+        	if(q.peek().val<priorities[len]) {
+        		q.offer(i);
+        		q.poll();
+        	}
+        	else {
+        		printidx=i.idx;
+        		answer++;
+        		q.poll();
+        		len--;
+        	}
+        }
+        
+        return answer;
+    }
+    
+    
+//js 코드
+function solution(priorities, location) {
+  var answer = 0;
+  var que=[];
+  for(var i in priorities){
+    que.push({"val":priorities[i],"idx":i});
+  }
+  priorities.sort();
+  var printidx=-1;
+  var len=priorities.length-1;
+  while(printidx!=location){
+    if(que[0].val<priorities[len]){
+      que.push(que[0]);
+      que.shift();
+    }
+    else{
+      printidx=que[0].idx;
+      que.shift();
+      len--;
+      answer++;
+    }
+  }
+
+  return answer;
+}
